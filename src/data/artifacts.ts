@@ -1,4 +1,4 @@
-export type Artifact = {
+export type Trace = {
   id: string;
   title: string;
   location: string;
@@ -11,104 +11,104 @@ export type Artifact = {
   };
 };
 
-export const artifacts: Artifact[] = [
+export const traces: Trace[] = [
   {
     id: "trace-01",
-    title: "Worn Rail",
-    location: "Upper deck railing",
-    image: "/images/artifacts/artifact-01.jpg",
+    title: "Chipped Wood",
+    location: "Surface detail on the Junk Boat",
+    image: "/images/artifacts/chipped-wood-piece.jpg",
     label:
-      "A polished rail surface, recorded as evidence of repeated touch, climbing, waiting, and balance.",
+      "A close view of chipped wood, selected as a surface trace from the site visit rather than a collected object.",
     interpretation:
-      "This trace asks us to read play as a form of repeated contact. The rail becomes a small archive of hands, weather, and movement.",
-    hotspot: { x: 35, y: 29 },
+      "The chip makes use visible. It records weather, repair needs, and the ordinary friction of hands, feet, and time on a public play structure.",
+    hotspot: { x: 38, y: 56 },
   },
   {
     id: "trace-02",
-    title: "Hidden Corner",
-    location: "Interior passage",
-    image: "/images/artifacts/artifact-02.jpg",
+    title: "Tunnel / Hidden Passage",
+    location: "Interior route through the boat",
+    image: "/images/artifacts/tunnel.jpg",
     label:
-      "A tucked-away corner where the structure briefly changes from public playground to private room.",
+      "A tunnel-like passage inside the playground structure, where the boat briefly becomes a room, path, and hiding place.",
     interpretation:
-      "Corners make room for imagination. This one suggests that children used the Junk Boat not only as equipment, but as shelter, stage, and secret architecture.",
-    hotspot: { x: 47, y: 47 },
+      "This trace shows how play changes scale. A small passage can become private architecture, a shortcut, or an imagined below-deck space.",
+    hotspot: { x: 48, y: 58 },
   },
   {
     id: "trace-03",
-    title: "Playground Surface",
-    location: "Ground plane below the hull",
-    image: "/images/artifacts/artifact-03.jpg",
+    title: "Area Needing Repair",
+    location: "Weathered or damaged section",
+    image: "/images/artifacts/area-needs-repair.jpg",
     label:
-      "A surface shaped by safety standards, daily footsteps, and the practical maintenance of a public park.",
+      "A visible area of wear or damage, recorded as evidence of maintenance, age, and public responsibility.",
     interpretation:
-      "The ground records what the boat cannot: falls, running paths, pauses, and the evolving rules around how public play should feel.",
-    hotspot: { x: 55, y: 78 },
+      "Repair is part of the playground's history. This trace asks who notices damage, who fixes it, and how care becomes part of the exhibit record.",
+    hotspot: { x: 61, y: 53 },
   },
   {
     id: "trace-04",
-    title: "Repaired Panel",
-    location: "Starboard side panel",
-    image: "/images/artifacts/artifact-04.jpg",
+    title: "Debris Inside the Boat",
+    location: "Interior floor or corner",
+    image: "/images/artifacts/junk-in-the-boat.jpg",
     label:
-      "A replacement or repaired panel that interrupts the surface of the boat and marks a moment of care.",
+      "Debris found inside the play structure, documented as a present-day trace of everyday park use.",
     interpretation:
-      "Repair is part of the exhibit's timeline. It shows that the playground survived through maintenance, not simply through nostalgia.",
-    hotspot: { x: 64, y: 49 },
+      "The debris is not precious, but it is informative. It connects the boat to daily habits, public space, cleanup, and the gap between design and use.",
+    hotspot: { x: 46, y: 73 },
   },
   {
     id: "trace-05",
-    title: "Bow of the Boat",
-    location: "Forward end of the structure",
-    image: "/images/artifacts/artifact-05.jpg",
+    title: "More Debris / Left Behind",
+    location: "Interior edge of the play area",
+    image: "/images/artifacts/more-junk-in-the-boat.jpg",
     label:
-      "The front edge of the Junk Boat, where the playground most clearly becomes a vessel.",
+      "Another left-behind view from the site visit, showing the boat as an active and imperfect public place.",
     interpretation:
-      "The bow points outward. It turns a neighborhood playground into a small voyage, connecting Oakland Chinatown to stories of migration, water, and arrival.",
-    hotspot: { x: 76, y: 39 },
+      "Multiple traces of debris suggest repetition, not accident. They show the park as a lived-in environment rather than a frozen display object.",
+    hotspot: { x: 55, y: 75 },
   },
   {
     id: "trace-06",
-    title: "Stairway",
-    location: "Climbing route to the deck",
-    image: "/images/artifacts/artifact-06.jpg",
+    title: "Rules and Public Use",
+    location: "Posted sign near the playground",
+    image: "/images/artifacts/no-food-sign.jpg",
     label:
-      "A stairway that organizes movement through the structure and turns climbing into a repeated ritual.",
+      "A rule sign near the Junk Boat, included as a trace of how public behavior is guided, limited, and negotiated.",
     interpretation:
-      "Steps make the boat legible. They guide bodies from ground to deck and transform a simple climb into entering an imagined ship.",
-    hotspot: { x: 42, y: 63 },
+      "Rules are part of the site. They reveal how the park is managed and how play exists alongside care, food, mess, safety, and shared expectations.",
+    hotspot: { x: 31, y: 33 },
   },
   {
     id: "trace-07",
-    title: "Surrounding Court",
-    location: "Park space around the boat",
-    image: "/images/artifacts/artifact-07.jpg",
+    title: "Sails and Symbolic Form",
+    location: "Upper silhouette of the boat",
+    image: "/images/artifacts/sails.jpg",
     label:
-      "The open court around the playground, where the boat meets basketball, benches, shade, and neighborhood circulation.",
+      "A view of the sail-like forms that make the playground read as a Junk Boat rather than ordinary equipment.",
     interpretation:
-      "The Junk Boat is not an isolated object. Its meaning expands through the surrounding park and the everyday routes that pass beside it.",
-    hotspot: { x: 22, y: 70 },
+      "The sails carry cultural and imaginative meaning. They let the structure point beyond the park toward travel, Chinatown identity, and storytelling.",
+    hotspot: { x: 50, y: 22 },
   },
   {
     id: "trace-08",
-    title: "Archival Photograph",
-    location: "Historical image record",
-    image: "/images/artifacts/artifact-08.jpg",
+    title: "Nearby Wall Art / Community Context",
+    location: "Wall art near the playground",
+    image: "/images/artifacts/wall-art-nearby-the-boat.jpg",
     label:
-      "A placeholder archival trace, standing in for images that connect the playground to its 1966 dedication and later memories.",
+      "A nearby visual context trace, showing that the boat sits within a wider neighborhood environment of images, surfaces, and public expression.",
     interpretation:
-      "Archives do not simply preserve the past. They choose angles, moments, and absences, shaping what future viewers can imagine.",
-    hotspot: { x: 28, y: 42 },
+      "The site is larger than the boat. Nearby wall art connects the playground to community context and to the visual life of Oakland Chinatown.",
+    hotspot: { x: 74, y: 38 },
   },
   {
     id: "trace-09",
-    title: "Object Left Behind",
-    location: "Edge of the play area",
-    image: "/images/artifacts/artifact-09.jpg",
+    title: "Surrounding Passage",
+    location: "Bridge or passage near the boat",
+    image: "/images/artifacts/another-bridge.jpg",
     label:
-      "A small found object, treated as a clue to ordinary park life rather than as a precious artifact.",
+      "A surrounding passage view, selected to show how movement around the Junk Boat shapes the experience of the site.",
     interpretation:
-      "The leftover object keeps the exhibit grounded in the present. It reminds us that archaeology can begin with attention to what is nearby.",
-    hotspot: { x: 83, y: 72 },
+      "Archaeology of play includes approach routes and edges. This trace records how the boat belongs to a network of paths, courts, and nearby structures.",
+    hotspot: { x: 25, y: 66 },
   },
 ];
