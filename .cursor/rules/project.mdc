@@ -1,0 +1,69 @@
+---
+description: Project rules for the Junk Boat digital museum exhibit
+alwaysApply: true
+---
+
+# Project Context
+
+This is a Next.js + TypeScript + Tailwind single-page website called “Excavating the Junk Boat.”
+
+The site is for an archaeology/imagination class project about the Junk Boat playground at Lincoln Square Park in Oakland Chinatown. The project treats the playground as an archaeological site of play, repair, memory, public space, community context, and visible traces.
+
+The site should feel like a playful but polished digital museum exhibit, not a generic school website or startup landing page.
+
+# Current Direction
+
+The project has an MVP with:
+- Hero section
+- Exhibit statement
+- Interactive Junk Boat section with 9 clickable hotspots
+- Nine traces / archive section
+- Time and Transformation section
+- Personal archaeology section
+- Closing reflection
+
+The site uses working real JPEG images in:
+- public/images/
+- public/images/artifacts/
+- public/images/context/
+
+Use “traces,” not “artifacts,” in user-facing copy.
+
+# Visual Direction
+
+The user wants a stylized illustrated Junk Boat render inspired by a clean floating-island / storybook / low-poly architectural illustration style:
+- bright daytime
+- playful
+- colorful
+- simplified geometric forms
+- museum-like
+- not dark
+- not futuristic
+- not photorealistic
+- not overly childish
+
+# Important Technical Direction
+
+Do NOT build actual 3D.
+Do NOT add a controllable character.
+Do NOT add a game engine.
+Do NOT over-engineer.
+
+Use a 2D stylized render image and add subtle scroll/parallax movement.
+
+The stylized render should eventually be stored at:
+- public/images/junk-boat-stylized-render.png
+
+# Coding Expectations
+
+- Keep the site single-page.
+- Keep the app static.
+- No backend.
+- No database.
+- No authentication.
+- Avoid unnecessary dependencies.
+- Prefer existing React, Next.js, TypeScript, and Tailwind.
+- Keep data editable in src/data/artifacts.ts.
+- Make changes surgically.
+- Do not rewrite the whole project unless necessary.
+- Run npm run lint and npm run build after changes.

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { traces, type Trace } from "@/src/data/artifacts";
 
 const collectionStats = [
@@ -14,7 +14,7 @@ export default function Home() {
   const [selectedTrace, setSelectedTrace] = useState<Trace>(traces[0]);
 
   return (
-    <main className="min-h-screen overflow-hidden bg-[#fff6dc] text-[#23313d]">
+    <main className="min-h-screen overflow-hidden bg-[linear-gradient(180deg,#fff6dc_0%,#fffdf2_38%,#e8fbf6_100%)] text-[#23313d]">
       <Hero />
       <ExhibitStatement />
       <InteractiveBoat
@@ -34,57 +34,59 @@ export default function Home() {
 
 function Hero() {
   return (
-    <section className="relative min-h-[86svh] overflow-hidden border-b border-[#23313d]/15">
+    <section className="relative min-h-[90svh] overflow-hidden border-b border-[#23313d]/15">
       <ExhibitImage
         src="/images/hero-junk-boat.jpg"
         alt="Junk Boat playground at Lincoln Square Park"
         fallbackTitle="Junk Boat playground"
         variant="hero"
         priority
-        className="absolute inset-0"
+        className="absolute inset-0 h-full w-full"
+        imageClassName="object-cover object-[62%_50%]"
       />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,246,220,0.95),rgba(255,246,220,0.72)_45%,rgba(255,246,220,0.18))]" />
-      <div className="relative z-10 mx-auto flex min-h-[86svh] w-full max-w-6xl flex-col justify-between px-5 py-5 sm:px-8 lg:px-10">
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,246,220,0.97),rgba(255,246,220,0.78)_46%,rgba(255,246,220,0.2)),linear-gradient(0deg,rgba(35,49,61,0.12),rgba(35,49,61,0)_42%)]" />
+      <div className="relative z-10 mx-auto flex min-h-[90svh] w-full max-w-6xl flex-col justify-between px-5 py-5 sm:px-8 lg:px-10">
         <nav
           aria-label="Exhibit sections"
-          className="flex flex-wrap items-center gap-2 text-xs font-black uppercase tracking-[0.16em] text-[#23313d]"
+          className="flex max-w-full flex-wrap items-center gap-2 text-[0.7rem] font-black uppercase tracking-[0.16em] text-[#23313d] sm:text-xs"
         >
           <a
             href="#statement"
-            className="border-b-2 border-[#f6c744] bg-white/55 px-2 py-1 transition hover:bg-white"
+            className="border-b-2 border-[#f6c744] bg-white/75 px-2.5 py-1.5 shadow-[3px_3px_0_rgba(35,49,61,0.12)] transition hover:-translate-y-0.5 hover:bg-white focus:outline-none focus-visible:ring-4 focus-visible:ring-[#f6c744]/45"
           >
             Statement
           </a>
           <a
             href="#boat"
-            className="border-b-2 border-[#41b6a6] bg-white/55 px-2 py-1 transition hover:bg-white"
+            className="border-b-2 border-[#41b6a6] bg-white/75 px-2.5 py-1.5 shadow-[3px_3px_0_rgba(35,49,61,0.12)] transition hover:-translate-y-0.5 hover:bg-white focus:outline-none focus-visible:ring-4 focus-visible:ring-[#41b6a6]/45"
           >
             Boat
           </a>
           <a
             href="#collection"
-            className="border-b-2 border-[#ef5d45] bg-white/55 px-2 py-1 transition hover:bg-white"
+            className="border-b-2 border-[#ef5d45] bg-white/75 px-2.5 py-1.5 shadow-[3px_3px_0_rgba(35,49,61,0.12)] transition hover:-translate-y-0.5 hover:bg-white focus:outline-none focus-visible:ring-4 focus-visible:ring-[#ef5d45]/35"
           >
             Archive
           </a>
           <a
             href="#reflection"
-            className="border-b-2 border-[#4a76c9] bg-white/55 px-2 py-1 transition hover:bg-white"
+            className="border-b-2 border-[#4a76c9] bg-white/75 px-2.5 py-1.5 shadow-[3px_3px_0_rgba(35,49,61,0.12)] transition hover:-translate-y-0.5 hover:bg-white focus:outline-none focus-visible:ring-4 focus-visible:ring-[#4a76c9]/35"
           >
             Reflection
           </a>
         </nav>
 
-        <div className="max-w-3xl pb-10 pt-24 sm:pb-16">
+        <div className="max-w-3xl pb-12 pt-24 sm:pb-20">
           <p className="mb-4 inline-flex border border-[#23313d] bg-[#f6c744] px-3 py-2 text-xs font-black uppercase tracking-[0.18em] shadow-[5px_5px_0_#23313d]">
             Lincoln Square Park / Oakland Chinatown
           </p>
-          <h1 className="max-w-3xl text-5xl font-black leading-[0.95] tracking-normal text-[#23313d] sm:text-7xl lg:text-8xl">
+          <h1 className="max-w-3xl text-4xl font-black leading-[0.98] tracking-normal text-[#23313d] drop-shadow-[0_2px_0_rgba(255,255,255,0.45)] min-[380px]:text-5xl sm:text-7xl lg:text-8xl">
             Excavating the Junk Boat
           </h1>
-          <p className="mt-6 max-w-2xl text-lg font-medium leading-8 text-[#34495a] sm:text-xl">
-            A digital museum exhibit about a playground ship, the traces it
-            holds, and the neighborhood stories that gather around it.
+          <p className="mt-6 max-w-2xl border-l-4 border-[#ef5d45] bg-white/62 px-4 py-3 text-base font-semibold leading-7 text-[#34495a] shadow-[5px_5px_0_rgba(35,49,61,0.12)] sm:text-xl sm:leading-8">
+            A field-based digital exhibit reading a playground ship through
+            wear, repair, rules, memory, and the small clues left by public
+            play.
           </p>
         </div>
       </div>
@@ -96,24 +98,24 @@ function ExhibitStatement() {
   return (
     <section
       id="statement"
-      className="border-b border-[#23313d]/15 bg-[#fff6dc] px-5 py-16 sm:px-8 lg:px-10"
+      className="border-b border-[#23313d]/15 bg-[#fff6dc] px-5 py-20 sm:px-8 sm:py-24 lg:px-10"
     >
       <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
         <SectionHeading
           eyebrow="Exhibit statement"
-          title="A playground can be read through traces."
+          title="A playground can hold a public memory."
         />
-        <div className="grid gap-5 text-lg leading-8 text-[#34495a]">
+        <div className="grid gap-5 border-l-4 border-[#41b6a6] bg-white/55 px-5 py-5 text-base leading-8 text-[#34495a] shadow-[7px_7px_0_rgba(35,49,61,0.1)] sm:text-lg">
           <p>
-            The Junk Boat at Lincoln Square Park is both public play equipment
-            and a cultural object. Its surfaces invite climbing and pretending,
-            but they also carry evidence of use, repair, memory, and changing
-            ideas about community space.
+            The Junk Boat at Lincoln Square Park is more than play equipment.
+            It is a neighborhood structure with surfaces shaped by climbing,
+            weather, repair, rules, and repeated imagination.
           </p>
           <p>
-            This MVP treats the boat as a small archaeological site. The records
-            below are traces selected from a site visit: details, views, signs,
-            surfaces, and bits of context that help the playground speak.
+            This exhibit treats the playground as a small archaeological site.
+            The traces below come from looking closely during a site visit:
+            details, views, signs, and surrounding context that make the boat
+            feel both ordinary and worth preserving.
           </p>
         </div>
       </div>
@@ -131,7 +133,7 @@ function InteractiveBoat({
   return (
     <section
       id="boat"
-      className="border-b border-[#23313d]/15 bg-[#aee5dc] px-5 py-16 sm:px-8 lg:px-10"
+      className="border-b border-[#23313d]/15 bg-[#b8ece5] px-5 py-20 sm:px-8 sm:py-24 lg:px-10"
     >
       <div className="mx-auto max-w-6xl">
         <SectionHeading
@@ -140,15 +142,21 @@ function InteractiveBoat({
           description="A field map of surface marks, routes, repairs, rules, and neighborhood context from the playground."
         />
 
-        <div className="mt-8 grid gap-5 lg:grid-cols-[minmax(0,1.45fr)_minmax(320px,0.75fr)]">
-          <div className="relative border border-[#23313d] bg-[#f8f0cf] p-3 shadow-[8px_8px_0_#23313d]">
-            <div className="relative aspect-[4/3] overflow-hidden bg-[#ddf5f0] sm:aspect-[16/10]">
+        <div className="mt-10 grid gap-6 lg:grid-cols-[minmax(0,1.45fr)_minmax(320px,0.75fr)] lg:items-start">
+          <div className="relative border border-[#23313d] bg-white p-2 shadow-[10px_10px_0_rgba(35,49,61,0.86)] sm:p-4">
+            <div className="mb-2 flex items-center justify-between gap-3 border-b border-[#23313d]/20 pb-2 text-[0.7rem] font-black uppercase tracking-[0.16em] text-[#23313d]">
+              <span>Field map</span>
+              <span className="text-[#ef5d45]">9 selected traces</span>
+            </div>
+            <ParallaxBoatVisual>
               <ExhibitImage
-                src="/images/boat-render.jpg"
+                src="/images/junk-boat-stylized-render.png"
+                fallbackSrc="/images/boat-render.jpg"
                 alt="Junk Boat playground view with numbered trace hotspots"
                 fallbackTitle="Junk Boat field view"
                 variant="boat"
-                className="absolute inset-0"
+                className="absolute inset-0 h-full w-full"
+                imageClassName="object-cover object-center"
               />
               {traces.map((trace, index) => (
                 <Hotspot
@@ -159,13 +167,79 @@ function InteractiveBoat({
                   onSelect={() => onSelectTrace(trace)}
                 />
               ))}
-            </div>
+            </ParallaxBoatVisual>
           </div>
 
           <TracePanel trace={selectedTrace} />
         </div>
       </div>
     </section>
+  );
+}
+
+function ParallaxBoatVisual({ children }: { children: React.ReactNode }) {
+  const frameRef = useRef<HTMLDivElement>(null);
+  const [offset, setOffset] = useState(0);
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    );
+    let animationFrame = 0;
+
+    const updateOffset = () => {
+      animationFrame = 0;
+
+      if (prefersReducedMotion.matches || !frameRef.current) {
+        setOffset(0);
+        return;
+      }
+
+      const rect = frameRef.current.getBoundingClientRect();
+      const viewportCenter = window.innerHeight / 2;
+      const elementCenter = rect.top + rect.height / 2;
+      const progress = (viewportCenter - elementCenter) / window.innerHeight;
+      const clampedProgress = Math.max(-1, Math.min(1, progress));
+
+      setOffset(Math.round(clampedProgress * 120) / 10);
+    };
+
+    const requestUpdate = () => {
+      if (animationFrame === 0) {
+        animationFrame = window.requestAnimationFrame(updateOffset);
+      }
+    };
+
+    updateOffset();
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+    prefersReducedMotion.addEventListener("change", requestUpdate);
+
+    return () => {
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+      prefersReducedMotion.removeEventListener("change", requestUpdate);
+
+      if (animationFrame !== 0) {
+        window.cancelAnimationFrame(animationFrame);
+      }
+    };
+  }, []);
+
+  return (
+    <div
+      ref={frameRef}
+      className="relative aspect-[16/9] overflow-hidden border border-[#23313d]/30 bg-[#ddf5f0]"
+    >
+      <div
+        className="absolute inset-0 will-change-transform"
+        style={{
+          transform: `translate3d(0, ${offset}px, 0) scale(1.035)`,
+        }}
+      >
+        {children}
+      </div>
+    </div>
   );
 }
 
@@ -189,7 +263,7 @@ function Hotspot({
         type="button"
         aria-label={`Open trace: ${trace.title}`}
         onClick={onSelect}
-        className={`grid size-11 place-items-center border-2 border-[#23313d] text-sm font-black shadow-[4px_4px_0_rgba(35,49,61,0.9)] transition hover:-translate-y-0.5 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#f6c744] ${
+        className={`grid size-9 place-items-center border-2 border-[#23313d] text-xs font-black shadow-[4px_4px_0_rgba(35,49,61,0.9)] transition duration-200 hover:-translate-y-0.5 hover:scale-105 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#f6c744] sm:size-11 sm:text-sm ${
           isSelected
             ? "bg-[#ef5d45] text-white"
             : "bg-white text-[#23313d] hover:bg-[#f6c744]"
@@ -197,7 +271,7 @@ function Hotspot({
       >
         {index + 1}
       </button>
-      <span className="pointer-events-none absolute left-1/2 top-0 z-30 -translate-x-1/2 -translate-y-[calc(100%+0.55rem)] border border-[#23313d] bg-white px-3 py-2 text-xs font-black uppercase tracking-[0.08em] text-[#23313d] opacity-0 shadow-[4px_4px_0_#23313d] transition group-hover:opacity-100 group-focus-within:opacity-100">
+      <span className="pointer-events-none absolute left-1/2 top-0 z-30 max-w-[9rem] -translate-x-1/2 -translate-y-[calc(100%+0.55rem)] border border-[#23313d] bg-white px-3 py-2 text-center text-[0.68rem] font-black uppercase leading-4 tracking-[0.08em] text-[#23313d] opacity-0 shadow-[4px_4px_0_#23313d] transition duration-200 group-hover:opacity-100 group-focus-within:opacity-100 sm:max-w-none sm:whitespace-nowrap sm:text-xs">
         {trace.title}
       </span>
     </div>
@@ -206,11 +280,11 @@ function Hotspot({
 
 function TracePanel({ trace }: { trace: Trace }) {
   return (
-    <aside className="border border-[#23313d] bg-white p-4 shadow-[8px_8px_0_#23313d]">
+    <aside className="border border-[#23313d] bg-[#fffef8] p-4 shadow-[8px_8px_0_#23313d] lg:sticky lg:top-6">
       <p className="text-xs font-black uppercase tracking-[0.18em] text-[#4a76c9]">
         Selected trace / {trace.id}
       </p>
-      <h3 className="mt-2 text-3xl font-black leading-tight text-[#23313d]">
+      <h3 className="mt-2 text-2xl font-black leading-tight text-[#23313d] sm:text-3xl">
         {trace.title}
       </h3>
       <p className="mt-2 border-b border-[#23313d]/20 pb-3 text-sm font-bold uppercase tracking-[0.12em] text-[#6c6a52]">
@@ -221,7 +295,8 @@ function TracePanel({ trace }: { trace: Trace }) {
         alt={`Site visit trace image for ${trace.title}`}
         fallbackTitle={trace.title}
         variant="trace"
-        className="relative mt-4 aspect-[4/3] border border-[#23313d]/25 bg-[#fff6dc]"
+        className="relative mt-4 aspect-[4/3] border border-[#23313d]/25 bg-[#fff6dc] shadow-[4px_4px_0_rgba(35,49,61,0.14)]"
+        imageClassName="object-cover object-center"
       />
       <div className="mt-4 space-y-4 text-sm leading-6 text-[#34495a]">
         <LabelBlock title="Trace label" body={trace.label} />
@@ -241,7 +316,7 @@ function DigitalCollection({
   return (
     <section
       id="collection"
-      className="border-b border-[#23313d]/15 bg-[#f6c744] px-5 py-16 sm:px-8 lg:px-10"
+      className="border-b border-[#23313d]/15 bg-[#f7d45b] px-5 py-20 sm:px-8 sm:py-24 lg:px-10"
     >
       <div className="mx-auto max-w-6xl">
         <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
@@ -254,12 +329,12 @@ function DigitalCollection({
             {collectionStats.map((stat) => (
               <div
                 key={stat.label}
-                className="border-r border-[#23313d]/20 px-3 py-4 last:border-r-0"
+                className="border-r border-[#23313d]/20 px-2 py-4 last:border-r-0 sm:px-3 sm:py-5"
               >
-                <p className="text-2xl font-black text-[#ef5d45]">
+                <p className="text-xl font-black text-[#ef5d45] sm:text-2xl">
                   {stat.value}
                 </p>
-                <p className="mt-1 text-xs font-bold uppercase tracking-[0.12em] text-[#34495a]">
+                <p className="mt-1 text-[0.62rem] font-bold uppercase leading-4 tracking-[0.1em] text-[#34495a] sm:text-xs">
                   {stat.label}
                 </p>
               </div>
@@ -267,29 +342,34 @@ function DigitalCollection({
           </div>
         </div>
 
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {traces.map((trace, index) => (
             <button
               key={trace.id}
               type="button"
               onClick={() => onSelectTrace(trace)}
-              className={`group border border-[#23313d] bg-white p-3 text-left shadow-[6px_6px_0_rgba(35,49,61,0.9)] transition hover:-translate-y-1 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#41b6a6] ${
-                selectedTrace.id === trace.id ? "translate-y-[-2px]" : ""
+              className={`group border bg-white p-3 text-left shadow-[6px_6px_0_rgba(35,49,61,0.78)] transition duration-200 hover:-translate-y-1 hover:shadow-[9px_9px_0_rgba(35,49,61,0.86)] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#41b6a6] ${
+                selectedTrace.id === trace.id
+                  ? "translate-y-[-2px] border-[#ef5d45] ring-4 ring-[#ef5d45]/20"
+                  : "border-[#23313d]"
               }`}
             >
-              <ExhibitImage
-                src={trace.image}
-                alt={`Collection trace image for ${trace.title}`}
-                fallbackTitle={trace.title}
-                variant="trace"
-                className="relative aspect-[5/3] border border-[#23313d]/20 bg-[#fff6dc]"
-              />
+              <div className="overflow-hidden border border-[#23313d]/20 bg-[#fff6dc]">
+                <ExhibitImage
+                  src={trace.image}
+                  alt={`Collection trace image for ${trace.title}`}
+                  fallbackTitle={trace.title}
+                  variant="trace"
+                  className="relative aspect-[5/3]"
+                  imageClassName="object-cover object-center transition-transform duration-500 group-hover:scale-[1.04]"
+                />
+              </div>
               <div className="mt-4 flex items-start gap-3">
-                <span className="grid size-9 shrink-0 place-items-center border border-[#23313d] bg-[#aee5dc] text-sm font-black text-[#23313d]">
+                <span className="grid size-9 shrink-0 place-items-center border border-[#23313d] bg-[#aee5dc] text-sm font-black text-[#23313d] transition group-hover:bg-[#f6c744]">
                   {index + 1}
                 </span>
                 <div>
-                  <h3 className="text-xl font-black leading-tight text-[#23313d]">
+                  <h3 className="text-lg font-black leading-tight text-[#23313d] sm:text-xl">
                     {trace.title}
                   </h3>
                   <p className="mt-1 text-sm font-semibold text-[#5b6470]">
@@ -307,23 +387,27 @@ function DigitalCollection({
 
 function TimeTransformation() {
   return (
-    <section className="border-b border-[#23313d]/15 bg-white px-5 py-16 sm:px-8 lg:px-10">
+    <section className="border-b border-[#23313d]/15 bg-white px-5 py-20 sm:px-8 sm:py-24 lg:px-10">
       <div className="mx-auto max-w-6xl">
         <SectionHeading
           eyebrow="Time and transformation"
           title="1966 toward 2026."
-          description="A holding space for archive work that still feels intentional while historical images are pending."
+          description="A comparison between an earlier reference image and a present-day field view, showing the boat as both a remembered object and a living public site."
         />
-        <div className="mt-8 grid gap-5 lg:grid-cols-2">
+        <div className="mt-10 grid gap-5 lg:grid-cols-2">
           <TimelineCard
             year="1966"
-            title="Archival image pending"
-            body="This card will hold a historical view of the Junk Boat when an archive image is selected. For now, it marks the playground's origin story as an open research question."
+            title="Earlier boat reference"
+            image="/images/og-boat.jpg"
+            imageAlt="Earlier reference image of the Junk Boat playground"
+            body="This view holds the boat close to its origin story. It gives the exhibit a point of comparison for looking at what has lasted, shifted, and been repaired."
           />
           <TimelineCard
             year="2026"
-            title="Field image pending"
-            body="The present-day record can be updated with a dedicated comparison image later. The current trace archive already begins that 2026 fieldwork."
+            title="Present-day field view"
+            image="/images/hero-junk-boat.jpg"
+            imageAlt="Present-day field image of the Junk Boat playground"
+            body="The current field view shows the Junk Boat as an active playground site. Its surfaces, edges, and surroundings continue to gather evidence of public play."
           />
         </div>
       </div>
@@ -334,21 +418,27 @@ function TimeTransformation() {
 function TimelineCard({
   year,
   title,
+  image,
+  imageAlt,
   body,
 }: {
   year: string;
   title: string;
+  image: string;
+  imageAlt: string;
   body: string;
 }) {
   return (
-    <article className="border border-[#23313d] bg-[#fff6dc] p-4 shadow-[8px_8px_0_#23313d]">
-      <div className="grid aspect-[4/3] place-items-center border border-dashed border-[#23313d]/45 bg-white p-6 text-center">
-        <div>
-          <p className="text-xs font-black uppercase tracking-[0.16em] text-[#4a76c9]">
-            Image pending
-          </p>
-          <p className="mt-2 text-5xl font-black text-[#ef5d45]">{year}</p>
-        </div>
+    <article className="border border-[#23313d] bg-[#fff6dc] p-4 shadow-[8px_8px_0_#23313d] transition hover:-translate-y-1 hover:shadow-[10px_10px_0_#23313d]">
+      <div className="relative aspect-[4/3] overflow-hidden border border-[#23313d]/30 bg-white">
+        <ExhibitImage
+          src={image}
+          alt={imageAlt}
+          fallbackTitle={title}
+          variant="archive"
+          className="absolute inset-0 h-full w-full"
+          imageClassName="object-cover object-center transition-transform duration-500 hover:scale-[1.03]"
+        />
       </div>
       <p className="mt-4 text-sm font-black uppercase tracking-[0.18em] text-[#ef5d45]">
         {year}
@@ -363,18 +453,18 @@ function PersonalArchaeology() {
   return (
     <section
       id="reflection"
-      className="border-b border-[#23313d]/15 bg-[#ef5d45] px-5 py-16 text-white sm:px-8 lg:px-10"
+      className="border-b border-[#23313d]/15 bg-[#ef5d45] px-5 py-20 text-white sm:px-8 sm:py-24 lg:px-10"
     >
       <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.85fr_1.15fr]">
         <div>
           <p className="text-xs font-black uppercase tracking-[0.18em] text-[#ffeaa3]">
             Personal archaeology
           </p>
-          <h2 className="mt-3 text-4xl font-black leading-tight sm:text-5xl">
+          <h2 className="mt-3 text-3xl font-black leading-tight sm:text-5xl">
             Looking closely turns memory into evidence.
           </h2>
         </div>
-        <div className="grid gap-5 text-lg leading-8 text-white/92">
+        <div className="grid gap-5 border-l-4 border-[#ffeaa3] bg-white/10 px-5 py-5 text-base leading-8 text-white/92 sm:text-lg">
           <p>
             This project begins with a simple move: treating a familiar play
             structure as something worth examining slowly. The Junk Boat becomes
@@ -394,12 +484,12 @@ function PersonalArchaeology() {
 
 function ClosingReflection() {
   return (
-    <section className="bg-[#23313d] px-5 py-16 text-white sm:px-8 lg:px-10">
+    <section className="bg-[#23313d] px-5 py-20 text-white sm:px-8 sm:py-24 lg:px-10">
       <div className="mx-auto max-w-4xl">
         <p className="text-xs font-black uppercase tracking-[0.18em] text-[#aee5dc]">
           Closing reflection
         </p>
-        <h2 className="mt-3 text-4xl font-black leading-tight sm:text-6xl">
+        <h2 className="mt-3 text-3xl font-black leading-tight sm:text-6xl">
           So what does a playground preserve?
         </h2>
         <p className="mt-6 text-lg leading-8 text-white/86">
@@ -427,11 +517,11 @@ function SectionHeading({
       <p className="text-xs font-black uppercase tracking-[0.18em] text-[#ef5d45]">
         {eyebrow}
       </p>
-      <h2 className="mt-3 max-w-3xl text-4xl font-black leading-tight text-[#23313d] sm:text-5xl">
+      <h2 className="mt-3 max-w-3xl text-3xl font-black leading-tight text-[#23313d] sm:text-5xl">
         {title}
       </h2>
       {description ? (
-        <p className="mt-4 max-w-2xl text-lg leading-8 text-[#34495a]">
+        <p className="mt-4 max-w-2xl text-base leading-8 text-[#34495a] sm:text-lg">
           {description}
         </p>
       ) : null}
@@ -452,21 +542,27 @@ function LabelBlock({ title, body }: { title: string; body: string }) {
 
 function ExhibitImage({
   src,
+  fallbackSrc,
   alt,
   fallbackTitle,
   className,
+  imageClassName,
   priority = false,
   variant = "trace",
 }: {
   src: string;
+  fallbackSrc?: string;
   alt: string;
   fallbackTitle: string;
   className?: string;
+  imageClassName?: string;
   priority?: boolean;
   variant?: "archive" | "trace" | "boat" | "hero";
 }) {
-  const [failedSrc, setFailedSrc] = useState<string | null>(null);
-  const hasError = failedSrc === src;
+  const [failedSrcs, setFailedSrcs] = useState<string[]>([]);
+  const currentSrc =
+    fallbackSrc && failedSrcs.includes(src) ? fallbackSrc : src;
+  const hasError = failedSrcs.includes(currentSrc);
 
   return (
     <div
@@ -476,7 +572,7 @@ function ExhibitImage({
     >
       {!hasError ? (
         <Image
-          src={src}
+          src={currentSrc}
           alt={alt}
           fill
           priority={priority}
@@ -486,8 +582,14 @@ function ExhibitImage({
               ? "100vw"
               : "(min-width: 1024px) 50vw, (min-width: 640px) 80vw, 100vw"
           }
-          className={variant === "boat" ? "object-contain" : "object-cover"}
-          onError={() => setFailedSrc(src)}
+          className={imageClassName ?? "object-cover object-center"}
+          onError={() => {
+            setFailedSrcs((previousFailedSrcs) =>
+              previousFailedSrcs.includes(currentSrc)
+                ? previousFailedSrcs
+                : [...previousFailedSrcs, currentSrc],
+            );
+          }}
         />
       ) : (
         <ImageFallback title={fallbackTitle} variant={variant} />
