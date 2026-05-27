@@ -16,7 +16,7 @@ export const traces: Trace[] = [
     id: "trace-01",
     title: "Chipped Wood",
     location: "Surface detail on the Junk Boat",
-    image: "/images/artifacts/chipped-wood-piece.jpg",
+    image: "/images/artifacts/art-1.jpg",
     label:
       "A close view of chipped wood, selected as a surface trace from the site visit rather than a collected object.",
     interpretation:
@@ -27,7 +27,7 @@ export const traces: Trace[] = [
     id: "trace-02",
     title: "Tunnel / Hidden Passage",
     location: "Interior route through the boat",
-    image: "/images/artifacts/tunnel.jpg",
+    image: "/images/artifacts/art-2.jpg",
     label:
       "A tunnel-like passage inside the playground structure, where the boat briefly becomes a room, path, and hiding place.",
     interpretation:
@@ -38,7 +38,7 @@ export const traces: Trace[] = [
     id: "trace-03",
     title: "Area Needing Repair",
     location: "Weathered or damaged section",
-    image: "/images/artifacts/area-needs-repair.jpg",
+    image: "/images/artifacts/art-3.jpg",
     label:
       "A visible area of wear or damage, recorded as evidence of maintenance, age, and public responsibility.",
     interpretation:
@@ -49,7 +49,7 @@ export const traces: Trace[] = [
     id: "trace-04",
     title: "Debris Inside the Boat",
     location: "Interior floor or corner",
-    image: "/images/artifacts/junk-in-the-boat.jpg",
+    image: "/images/artifacts/art-4.jpg",
     label:
       "Debris found inside the play structure, documented as a present-day trace of everyday park use.",
     interpretation:
@@ -60,7 +60,7 @@ export const traces: Trace[] = [
     id: "trace-05",
     title: "More Debris / Left Behind",
     location: "Interior edge of the play area",
-    image: "/images/artifacts/more-junk-in-the-boat.jpg",
+    image: "/images/artifacts/art-5.jpg",
     label:
       "Another left-behind view from the site visit, showing the boat as an active and imperfect public place.",
     interpretation:
@@ -71,7 +71,7 @@ export const traces: Trace[] = [
     id: "trace-06",
     title: "Rules and Public Use",
     location: "Posted sign near the playground",
-    image: "/images/artifacts/no-food-sign.jpg",
+    image: "/images/artifacts/art-6.jpg",
     label:
       "A rule sign near the Junk Boat, included as a trace of how public behavior is guided, limited, and negotiated.",
     interpretation:
@@ -82,7 +82,7 @@ export const traces: Trace[] = [
     id: "trace-07",
     title: "Sails and Symbolic Form",
     location: "Upper silhouette of the boat",
-    image: "/images/artifacts/sails.jpg",
+    image: "/images/artifacts/art-7.jpg",
     label:
       "A view of the sail-like forms that make the playground read as a Junk Boat rather than ordinary equipment.",
     interpretation:
@@ -93,7 +93,7 @@ export const traces: Trace[] = [
     id: "trace-08",
     title: "Nearby Wall Art / Community Context",
     location: "Wall art near the playground",
-    image: "/images/artifacts/wall-art-nearby-the-boat.jpg",
+    image: "/images/artifacts/art-8.jpg",
     label:
       "A nearby visual context trace, showing that the boat sits within a wider neighborhood environment of images, surfaces, and public expression.",
     interpretation:
@@ -104,7 +104,7 @@ export const traces: Trace[] = [
     id: "trace-09",
     title: "Surrounding Passage",
     location: "Bridge or passage near the boat",
-    image: "/images/artifacts/another-bridge.jpg",
+    image: "/images/artifacts/art-9.jpg",
     label:
       "A surrounding passage view, selected to show how movement around the Junk Boat shapes the experience of the site.",
     interpretation:

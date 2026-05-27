@@ -144,7 +144,7 @@ function InteractiveBoat({
           <div className="relative border border-[#23313d] bg-[#f8f0cf] p-3 shadow-[8px_8px_0_#23313d]">
             <div className="relative aspect-[4/3] overflow-hidden bg-[#ddf5f0] sm:aspect-[16/10]">
               <ExhibitImage
-                src="/images/context/boat-render.jpg"
+                src="/images/boat-render.jpg"
                 alt="Junk Boat playground view with numbered trace hotspots"
                 fallbackTitle="Junk Boat field view"
                 variant="boat"
@@ -498,41 +498,15 @@ function ExhibitImage({
 
 function ImageFallback({
   title,
-  variant,
 }: {
   title: string;
   variant: "archive" | "trace" | "boat" | "hero";
 }) {
-  if (variant === "boat") {
-    return (
-      <div className="absolute inset-0 bg-[#ddf5f0]">
-        <div className="absolute inset-x-[12%] bottom-[22%] h-[28%] skew-x-[-10deg] border-2 border-[#23313d] bg-[#d83f31] shadow-[10px_10px_0_rgba(35,49,61,0.22)]" />
-        <div className="absolute left-[26%] top-[24%] h-[28%] w-[34%] border-2 border-[#23313d] bg-[#f6c744]" />
-        <div className="absolute left-[44%] top-[17%] h-[42%] w-[8%] border-2 border-[#23313d] bg-white" />
-        <div className="absolute left-[53%] top-[23%] h-[29%] w-[22%] border-2 border-[#23313d] bg-[#4a76c9]" />
-        <div className="absolute inset-x-[18%] bottom-[15%] h-2 bg-[#23313d]/35" />
-        <span className="absolute left-4 top-4 border border-[#23313d] bg-white px-3 py-2 text-xs font-black uppercase tracking-[0.14em] text-[#23313d] shadow-[4px_4px_0_#23313d]">
-          {title}
-        </span>
-      </div>
-    );
-  }
-
-  if (variant === "hero") {
-    return (
-      <div className="absolute inset-0 bg-[linear-gradient(135deg,#fff6dc_0%,#aee5dc_42%,#f6c744_42%,#f6c744_64%,#ef5d45_64%,#ef5d45_100%)]">
-        <div className="absolute bottom-[18%] right-[3%] h-[24%] w-[31%] -skew-x-12 border-2 border-[#23313d] bg-[#d83f31]/72" />
-        <div className="absolute bottom-[38%] right-[17%] h-[22%] w-[17%] border-2 border-[#23313d] bg-[#4a76c9]/78" />
-        <div className="absolute bottom-[59%] right-[26%] h-[26%] w-[5%] border-2 border-[#23313d] bg-white/86" />
-      </div>
-    );
-  }
-
   return (
     <div className="absolute inset-0 grid place-items-center bg-[linear-gradient(135deg,#fff6dc,#ffffff_55%,#aee5dc)] p-5">
       <div className="w-full border border-[#23313d] bg-white px-4 py-5 text-center shadow-[5px_5px_0_#23313d]">
         <p className="text-xs font-black uppercase tracking-[0.16em] text-[#ef5d45]">
-          Trace image pending
+          Image file could not load
         </p>
         <p className="mt-2 text-lg font-black leading-tight text-[#23313d]">
           {title}
