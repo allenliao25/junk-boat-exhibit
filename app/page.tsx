@@ -5,9 +5,9 @@ import { useEffect, useRef, useState } from "react";
 import { traces, type Trace } from "@/src/data/artifacts";
 
 const collectionStats = [
-  { value: "09", label: "field records" },
-  { value: "LSQ", label: "park site code" },
-  { value: "2026", label: "site visit year" },
+  { value: "09", label: "selected traces" },
+  { value: "1966", label: "historical reference" },
+  { value: "2026", label: "field visit year" },
 ];
 
 type BoatView = {
@@ -47,37 +47,48 @@ const fieldBoatViews: BoatView[] = [
   },
   {
     id: "right",
-    label: "Green slide",
+    label: "Opposite side",
     src: "/images/junk-boat-render-refs/boat-render.jpg",
   },
   {
     id: "back-left",
-    label: "Rear corner",
+    label: "Ramp side",
     src: "/images/context/3d-6.jpg",
   },
   {
     id: "back",
-    label: "Stern",
+    label: "Slide deck",
     src: "/images/context/3d-13.jpg",
   },
 ];
 
 const hotspotViewId: BoatView["id"] = "left";
 
+function traceIndex(trace: Trace) {
+  return traces.findIndex((item) => item.id === trace.id);
+}
+
 export default function Home() {
   const [selectedTrace, setSelectedTrace] = useState<Trace>(traces[0]);
+  const [boatViewId, setBoatViewId] = useState<BoatView["id"]>(hotspotViewId);
+
+  const handleSelectTrace = (trace: Trace) => {
+    setSelectedTrace(trace);
+    setBoatViewId(trace.hotspot.view);
+  };
 
   return (
     <main className="min-h-screen overflow-hidden bg-[#fff7df] text-[#23313d]">
       <Hero />
-      <ExhibitStatement />
       <InteractiveBoat
+        activeViewId={boatViewId}
+        onActiveViewChange={setBoatViewId}
         selectedTrace={selectedTrace}
-        onSelectTrace={setSelectedTrace}
+        onSelectTrace={handleSelectTrace}
       />
       <DigitalCollection
         selectedTrace={selectedTrace}
-        onSelectTrace={setSelectedTrace}
+        onSelectTrace={handleSelectTrace}
       />
       <TimeTransformation />
     </main>
@@ -95,24 +106,12 @@ function Hero() {
   };
 
   return (
-    <section className="relative min-h-[90svh] overflow-hidden border-b border-[#23313d]/15 bg-[#f7dc72]">
-      <div className="absolute inset-x-0 top-0 h-3 bg-[repeating-linear-gradient(90deg,#ef5d45_0_22px,#41b66f_22px_44px,#4a93c9_44px_66px,#f6c744_66px_88px)]" />
-      <div className="absolute bottom-0 left-0 top-3 hidden w-12 border-r border-[#23313d]/20 bg-[#fff7df]/58 lg:block">
-        <p className="origin-bottom-left translate-x-3 translate-y-[74vh] -rotate-90 whitespace-nowrap text-[0.64rem] font-black uppercase tracking-[0.2em] text-[#23313d]/70">
-          LSQ-JB-2026 / playground archaeology
-        </p>
-      </div>
-      <div className="relative z-10 mx-auto flex min-h-[90svh] w-full max-w-7xl flex-col justify-between px-5 py-5 sm:px-8 lg:px-10">
+    <section className="relative overflow-hidden border-b border-[#23313d]/15 bg-[#f7dc72]">
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-5 px-5 py-5 sm:px-8 sm:py-6 lg:px-10">
         <nav
           aria-label="Exhibit sections"
           className="flex max-w-full flex-wrap items-center gap-2 text-[0.7rem] font-black uppercase tracking-[0.16em] text-[#23313d] sm:text-xs"
         >
-          <a
-            href="#statement"
-            className="border-b-2 border-[#f6c744] bg-white/75 px-2.5 py-1.5 shadow-[3px_3px_0_rgba(35,49,61,0.12)] transition hover:-translate-y-0.5 hover:bg-white focus:outline-none focus-visible:ring-4 focus-visible:ring-[#f6c744]/45"
-          >
-            Statement
-          </a>
           <a
             href="#boat"
             className="border-b-2 border-[#41b6a6] bg-white/75 px-2.5 py-1.5 shadow-[3px_3px_0_rgba(35,49,61,0.12)] transition hover:-translate-y-0.5 hover:bg-white focus:outline-none focus-visible:ring-4 focus-visible:ring-[#41b6a6]/45"
@@ -133,11 +132,8 @@ function Hero() {
           </a>
         </nav>
 
-        <div className="grid items-center gap-8 pb-12 pt-14 sm:pb-20 lg:grid-cols-[0.78fr_1.22fr] lg:gap-10 lg:pt-20">
+        <div className="grid items-center gap-6 pb-2 lg:grid-cols-[0.78fr_1.22fr] lg:gap-8">
           <div>
-            <p className="mb-4 inline-flex border border-[#23313d] bg-[#fff7df] px-3 py-2 text-xs font-black uppercase tracking-[0.18em] shadow-[5px_5px_0_#23313d]">
-              Field index / LSQ-JB-2026
-            </p>
             <h1 className="max-w-2xl text-4xl font-black leading-[0.98] tracking-normal text-[#23313d] drop-shadow-[0_2px_0_rgba(255,255,255,0.45)] min-[380px]:text-5xl sm:text-6xl lg:text-7xl">
               Excavating the Junk Boat
             </h1>
@@ -146,18 +142,6 @@ function Hero() {
               repair marks, public rules, and the play memories gathered around
               one bright playground ship.
             </p>
-            <div className="mt-5 grid max-w-xl grid-cols-2 border border-[#23313d]/40 bg-[#fff7df]/82 text-[0.68rem] font-black uppercase tracking-[0.12em] text-[#23313d] shadow-[4px_4px_0_rgba(35,49,61,0.14)] sm:grid-cols-4">
-              {["Red hull", "Green slide", "Yellow court", "Sky frame"].map(
-                (label) => (
-                  <span
-                    key={label}
-                    className="border-b border-r border-[#23313d]/18 px-3 py-2 last:border-r-0 sm:border-b-0"
-                  >
-                    {label}
-                  </span>
-                ),
-              )}
-            </div>
           </div>
 
           <div className="relative mx-auto w-full max-w-6xl lg:ml-6">
@@ -182,60 +166,11 @@ function Hero() {
                 imageClassName="object-contain object-center p-0 drop-shadow-[0_18px_20px_rgba(35,49,61,0.18)] sm:p-2"
               />
             </button>
-            <div className="mx-auto mt-4 flex w-fit flex-wrap items-center justify-center gap-2 lg:mt-8">
-              <p className="border border-[#23313d] bg-[#ffeaa3] px-3 py-1.5 text-[0.66rem] font-black uppercase tracking-[0.14em] text-[#23313d] shadow-[3px_3px_0_rgba(35,49,61,0.75)]">
+            <div className="mx-auto mt-3 lg:mt-4">
+              <p className="mx-auto w-fit border border-[#23313d] bg-[#ffeaa3] px-3 py-1.5 text-[0.66rem] font-black uppercase tracking-[0.14em] text-[#23313d] shadow-[3px_3px_0_rgba(35,49,61,0.75)]">
                 {heroView.label}
               </p>
-              <p className="border border-[#23313d]/45 bg-white/72 px-3 py-1.5 text-[0.66rem] font-bold uppercase tracking-[0.12em] text-[#52606b]">
-                Reconstruction sketch, not a 3D scene
-              </p>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ExhibitStatement() {
-  return (
-    <section
-      id="statement"
-      className="border-b border-[#23313d]/15 bg-[#fff7df] px-5 py-20 sm:px-8 sm:py-24 lg:px-10"
-    >
-      <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
-        <div>
-          <SectionHeading
-            eyebrow="Exhibit statement"
-            title="A playground can hold a public memory."
-          />
-          <div className="mt-8 max-w-sm rotate-[-1deg] border border-[#23313d] bg-[#bfeadf] p-4 shadow-[6px_6px_0_rgba(35,49,61,0.72)]">
-            <p className="text-[0.68rem] font-black uppercase tracking-[0.16em] text-[#23313d]">
-              Site note
-            </p>
-            <p className="mt-2 text-sm leading-6 text-[#34495a]">
-              The boat is not treated as a treasure removed from the park. It is
-              read in place, with its court, signs, routes, and neighborhood
-              edges still attached.
-            </p>
-          </div>
-        </div>
-        <div className="grid gap-5 border-l-4 border-[#41b66f] bg-white/68 px-5 py-5 text-base leading-8 text-[#34495a] shadow-[7px_7px_0_rgba(35,49,61,0.1)] sm:text-lg">
-          <p>
-            The Junk Boat at Lincoln Square Park is more than play equipment. It
-            is a neighborhood structure shaped by climbing, weather, repair,
-            rules, and repeated imagination.
-          </p>
-          <p>
-            This exhibit reads the playground as a small archaeological site.
-            The records below come from looking closely during a site visit:
-            surface evidence, field views, posted rules, and context that make
-            the boat feel ordinary, fragile, and worth noticing.
-          </p>
-          <div className="grid gap-2 border-t border-[#23313d]/18 pt-4 text-[0.72rem] font-black uppercase tracking-[0.14em] text-[#52606b] sm:grid-cols-3">
-            <span>Method: close looking</span>
-            <span>Material: play + repair</span>
-            <span>Frame: public space</span>
           </div>
         </div>
       </div>
@@ -244,17 +179,23 @@ function ExhibitStatement() {
 }
 
 function InteractiveBoat({
+  activeViewId,
+  onActiveViewChange,
   selectedTrace,
   onSelectTrace,
 }: {
+  activeViewId: BoatView["id"];
+  onActiveViewChange: (viewId: BoatView["id"]) => void;
   selectedTrace: Trace;
   onSelectTrace: (trace: Trace) => void;
 }) {
-  const [activeViewId, setActiveViewId] = useState<BoatView["id"]>(hotspotViewId);
   const activeView =
     fieldBoatViews.find((view) => view.id === activeViewId) ??
     fieldBoatViews[0];
-  const isHotspotView = activeView.id === hotspotViewId;
+  const visibleTraces = traces.filter(
+    (trace) => trace.hotspot.view === activeView.id,
+  );
+  const [showHotspots, setShowHotspots] = useState(true);
 
   return (
     <section
@@ -262,41 +203,19 @@ function InteractiveBoat({
       className="border-b border-[#23313d]/15 bg-[#bfeadf] px-5 py-20 sm:px-8 sm:py-24 lg:px-10"
     >
       <div className="mx-auto max-w-6xl">
-        <SectionHeading
-          eyebrow="Interactive Junk Boat"
-          title="The boat is the field table."
-          description="Select a numbered trace on the field view. Each point opens a record of surface evidence, route, rule, repair, or neighborhood context."
-        />
+        <FieldVisitLabel />
 
-        <div className="mt-5 flex flex-wrap items-start gap-3">
-          <FieldVisitLabel />
-          <span className="border border-[#23313d] bg-[#f6c744] px-3 py-1.5 text-[0.68rem] font-black uppercase tracking-[0.14em] text-[#23313d] shadow-[3px_3px_0_rgba(35,49,61,0.7)]">
-            Centerpiece
-          </span>
-          <span className="border border-[#23313d]/45 bg-white/74 px-3 py-1.5 text-[0.68rem] font-black uppercase tracking-[0.14em]">
-            Hotspots calibrated to field view
-          </span>
-        </div>
-
-        <div className="mt-8 grid gap-7 lg:grid-cols-[minmax(0,1.55fr)_minmax(320px,0.72fr)] lg:items-start">
+        <div className="mt-6 grid gap-7 lg:grid-cols-[minmax(0,1.55fr)_minmax(320px,0.72fr)] lg:items-start">
           <div className="relative border border-[#23313d] bg-[#fffaf0] p-2 shadow-[10px_10px_0_rgba(35,49,61,0.86)] sm:p-4">
-            <div className="mb-3 flex flex-wrap items-center justify-between gap-3 border-b border-[#23313d]/20 pb-3 text-[0.7rem] font-black uppercase tracking-[0.16em] text-[#23313d]">
-              <span>
-                LSQ-JB-MAP-01 / {isHotspotView ? "field view" : "view study"}
-              </span>
-              <span className="text-[#ef5d45]">
-                {isHotspotView ? "9 selected traces" : "Hotspots hidden"}
-              </span>
-            </div>
             <div
-              className="mb-3 flex flex-wrap gap-2"
+              className="mb-3 flex flex-wrap items-center gap-2"
               aria-label="Choose Junk Boat view"
             >
               {fieldBoatViews.map((view) => (
                 <button
                   key={view.id}
                   type="button"
-                  onClick={() => setActiveViewId(view.id)}
+                  onClick={() => onActiveViewChange(view.id)}
                   className={`border px-3 py-2 text-xs font-black uppercase tracking-[0.12em] transition hover:-translate-y-0.5 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#f6c744]/45 ${
                     activeView.id === view.id
                       ? "border-[#23313d] bg-[#ef5d45] text-white shadow-[3px_3px_0_#23313d]"
@@ -306,6 +225,18 @@ function InteractiveBoat({
                   {view.label}
                 </button>
               ))}
+              <button
+                type="button"
+                aria-pressed={showHotspots}
+                onClick={() => setShowHotspots((current) => !current)}
+                className={`border px-3 py-2 text-xs font-black uppercase tracking-[0.12em] transition hover:-translate-y-0.5 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#41b6a6]/45 sm:ml-auto ${
+                  showHotspots
+                    ? "border-[#23313d] bg-[#41b6a6] text-white shadow-[3px_3px_0_#23313d]"
+                    : "border-[#23313d]/45 bg-[#fff6dc] text-[#23313d] hover:bg-[#bfeadf]"
+                }`}
+              >
+                {showHotspots ? "Hide traces" : "Show traces"}
+              </button>
             </div>
             <ParallaxBoatVisual>
               <ExhibitImage
@@ -316,26 +247,22 @@ function InteractiveBoat({
                 className="absolute inset-0 h-full w-full"
                 imageClassName="object-cover object-center"
               />
-              {isHotspotView ? (
-                traces.map((trace, index) => (
+              {showHotspots && visibleTraces.length > 0 ? (
+                visibleTraces.map((trace) => (
                   <Hotspot
                     key={trace.id}
                     trace={trace}
-                    index={index}
+                    index={traceIndex(trace)}
                     isSelected={selectedTrace.id === trace.id}
                     onSelect={() => onSelectTrace(trace)}
                   />
                 ))
-              ) : (
+              ) : showHotspots ? (
                 <div className="absolute bottom-4 left-4 right-4 z-20 border border-[#23313d] bg-white/92 px-4 py-3 text-xs font-black uppercase tracking-[0.12em] text-[#23313d] shadow-[4px_4px_0_rgba(35,49,61,0.72)]">
-                  View study only. Return to Field View to explore trace pins.
+                  Switch to Field View or Opposite Side to explore traces.
                 </div>
-              )}
+              ) : null}
             </ParallaxBoatVisual>
-            <p className="mt-3 text-xs font-semibold leading-5 text-[#52606b]">
-              Site note: the numbered pins are not exact measurements. They are
-              working annotations for reading the boat as a public play object.
-            </p>
           </div>
 
           <TracePanel trace={selectedTrace} />
@@ -407,14 +334,6 @@ function ParallaxBoatVisual({ children }: { children: React.ReactNode }) {
       >
         {children}
       </div>
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex justify-between border-b border-[#23313d]/18 bg-white/58 px-3 py-1 text-[0.58rem] font-black uppercase tracking-[0.14em] text-[#23313d]/70">
-        <span>court edge</span>
-        <span>boat body</span>
-        <span>park edge</span>
-      </div>
-      <div className="pointer-events-none absolute bottom-3 right-3 z-10 border border-[#23313d]/45 bg-[#fff7df]/88 px-2.5 py-1 text-[0.62rem] font-black uppercase tracking-[0.12em] text-[#23313d]">
-        Trace map, not survey drawing
-      </div>
     </div>
   );
 }
@@ -457,20 +376,12 @@ function Hotspot({
 function TracePanel({ trace }: { trace: Trace }) {
   return (
     <aside className="border border-[#23313d] bg-[#fffaf0] p-4 shadow-[8px_8px_0_#23313d] lg:sticky lg:top-6">
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#23313d]/18 pb-3">
-        <p className="text-xs font-black uppercase tracking-[0.18em] text-[#4a93c9]">
-          Field record / {trace.id}
-        </p>
-        <p className="border border-[#23313d]/40 bg-[#f6c744] px-2 py-1 text-[0.62rem] font-black uppercase tracking-[0.12em] text-[#23313d]">
-          {trace.tag}
-        </p>
-      </div>
+      <p className="border-b border-[#23313d]/18 pb-3 text-xs font-black uppercase tracking-[0.18em] text-[#4a93c9]">
+        Selected trace
+      </p>
       <h3 className="mt-2 text-2xl font-black leading-tight text-[#23313d] sm:text-3xl">
         {trace.title}
       </h3>
-      <p className="mt-2 border-b border-[#23313d]/20 pb-3 text-sm font-bold uppercase tracking-[0.12em] text-[#6c6a52]">
-        {trace.location}
-      </p>
       <ExhibitImage
         src={trace.image}
         alt={`Site visit trace image for ${trace.title}`}
@@ -480,11 +391,10 @@ function TracePanel({ trace }: { trace: Trace }) {
         imageClassName="object-cover object-center"
       />
       <p className="mt-2 border-b border-[#23313d]/18 pb-3 text-xs font-semibold leading-5 text-[#52606b]">
-        Caption: {trace.caption}
+        {trace.caption}
       </p>
-      <div className="mt-4 space-y-4 text-sm leading-6 text-[#34495a]">
+      <div className="mt-4 text-sm leading-6 text-[#34495a]">
         <LabelBlock title="Trace label" body={trace.label} />
-        <LabelBlock title="Interpretive note" body={trace.interpretation} />
       </div>
     </aside>
   );
@@ -506,8 +416,8 @@ function DigitalCollection({
         <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
           <SectionHeading
             eyebrow="Digital collection"
-            title="Nine field records, not nine treasures."
-            description="Each trace pairs a site-visit image with a short label. Some records are objects; others are views, surfaces, routes, rules, or context."
+            title="Nine traces from one field visit."
+            description="Each record begins with a photograph from my site visit. Some traces are objects; others are surfaces, routes, repairs, rules, or surrounding views. Together, they form a curated sample rather than a complete archive."
           />
           <div className="grid rotate-[1deg] grid-cols-3 border border-[#23313d] bg-[#fffaf0] text-center shadow-[8px_8px_0_#23313d]">
             {collectionStats.map((stat) => (
@@ -534,28 +444,22 @@ function DigitalCollection({
           {traces.map((trace, index) => {
             const tiltClass =
               index % 3 === 0
-                ? "sm:-rotate-[0.8deg]"
+                ? "sm:-rotate-[0.8deg] sm:hover:-rotate-[1.1deg]"
                 : index % 3 === 1
-                  ? "sm:rotate-[0.6deg]"
-                  : "sm:translate-y-3";
+                  ? "sm:rotate-[0.6deg] sm:hover:rotate-[0.9deg]"
+                  : "sm:-rotate-[0.4deg] sm:hover:-rotate-[0.7deg]";
 
             return (
               <button
                 key={trace.id}
                 type="button"
                 onClick={() => onSelectTrace(trace)}
-                className={`group border bg-[#fffaf0] p-3 text-left shadow-[6px_6px_0_rgba(35,49,61,0.78)] transition duration-200 hover:-translate-y-1 hover:rotate-0 hover:shadow-[9px_9px_0_rgba(35,49,61,0.86)] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#41b6a6] ${tiltClass} ${
+                className={`border bg-[#fffaf0] p-3 text-left shadow-[6px_6px_0_rgba(35,49,61,0.78)] transition-transform duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#41b6a6] ${tiltClass} ${
                   selectedTrace.id === trace.id
-                    ? "translate-y-[-2px] rotate-0 border-[#ef5d45] ring-4 ring-[#ef5d45]/20"
+                    ? "border-[#ef5d45] ring-4 ring-[#ef5d45]/20"
                     : "border-[#23313d]"
                 }`}
               >
-                <div className="mb-3 flex items-center justify-between gap-2 text-[0.62rem] font-black uppercase tracking-[0.12em] text-[#52606b]">
-                  <span>LSQ-JB-{String(index + 1).padStart(2, "0")}</span>
-                  <span className="border border-[#23313d]/30 bg-[#bfeadf] px-2 py-1 text-[#23313d]">
-                    {trace.tag}
-                  </span>
-                </div>
                 <div className="overflow-hidden border border-[#23313d]/20 bg-[#fff6dc]">
                   <ExhibitImage
                     src={trace.image}
@@ -563,23 +467,20 @@ function DigitalCollection({
                     fallbackTitle={trace.title}
                     variant="trace"
                     className="relative aspect-[5/3]"
-                    imageClassName="object-cover object-center transition-transform duration-500 group-hover:scale-[1.04]"
+                    imageClassName="object-cover object-center"
                   />
                 </div>
                 <p className="mt-2 text-xs font-semibold leading-5 text-[#52606b]">
                   {trace.caption}
                 </p>
                 <div className="mt-4 flex items-start gap-3 border-t border-[#23313d]/15 pt-3">
-                  <span className="grid size-9 shrink-0 place-items-center border border-[#23313d] bg-[#41b66f]/25 text-sm font-black text-[#23313d] transition group-hover:bg-[#f6c744]">
+                  <span className="grid size-9 shrink-0 place-items-center border border-[#23313d] bg-[#41b66f]/25 text-sm font-black text-[#23313d]">
                     {index + 1}
                   </span>
                   <div>
                     <h3 className="text-lg font-black leading-tight text-[#23313d] sm:text-xl">
                       {trace.title}
                     </h3>
-                    <p className="mt-1 text-sm font-semibold text-[#5b6470]">
-                      {trace.location}
-                    </p>
                   </div>
                 </div>
               </button>
@@ -601,7 +502,6 @@ function TimeTransformation() {
         <SectionHeading
           eyebrow="Time and transformation"
           title="Reference, field view, reconstruction."
-          description="These paired images treat time as a working comparison. The sliders do not prove a perfect before-and-after; they show how memory, field photography, and reconstruction sit beside each other."
         />
         <div className="mt-10 grid gap-5 lg:grid-cols-2">
           <TimelineCard
@@ -610,8 +510,6 @@ function TimeTransformation() {
             realImage="/images/og-boat.jpg"
             renderImage="/images/2-d-render/old-boat.png"
             imageAlt="Earlier Junk Boat playground comparison"
-            note="Reference image + reconstruction"
-            body="The earlier reference gives the exhibit a baseline for looking at form, color, and what had to be rebuilt through imagination."
           />
           <TimelineCard
             year="2026"
@@ -619,8 +517,6 @@ function TimeTransformation() {
             realImage="/images/junk-boat-render-refs/hero-junk-boat.jpg"
             renderImage="/images/2-d-render/back-left-view.png"
             imageAlt="Current Junk Boat playground comparison"
-            note="Site visit image + reconstruction"
-            body="The present field view shows an active public site: routes, railings, stairs, slides, and surfaces still gathering traces of play."
           />
         </div>
       </div>
@@ -634,16 +530,12 @@ function TimelineCard({
   realImage,
   renderImage,
   imageAlt,
-  note,
-  body,
 }: {
   year: string;
   title: string;
   realImage: string;
   renderImage: string;
   imageAlt: string;
-  note: string;
-  body: string;
 }) {
   const [renderAmount, setRenderAmount] = useState(6);
 
@@ -687,12 +579,6 @@ function TimelineCard({
             </div>
           </div>
         ) : null}
-        <div className="absolute left-3 top-3 z-20 border border-[#23313d] bg-white/90 px-2.5 py-1 text-[0.62rem] font-black uppercase tracking-[0.12em] text-[#23313d] shadow-[3px_3px_0_rgba(35,49,61,0.72)]">
-          2D reconstruction
-        </div>
-        <div className="absolute right-3 top-3 z-20 border border-[#23313d] bg-[#f6c744]/95 px-2.5 py-1 text-[0.62rem] font-black uppercase tracking-[0.12em] text-[#23313d] shadow-[3px_3px_0_rgba(35,49,61,0.72)]">
-          Field/reference image
-        </div>
         <label className="absolute inset-0 z-30 block cursor-ew-resize">
           <span className="sr-only">
             Compare real image and 2D render for {title}
@@ -712,10 +598,6 @@ function TimelineCard({
         {year}
       </p>
       <h3 className="mt-1 text-2xl font-black text-[#23313d]">{title}</h3>
-      <p className="mt-2 w-fit border border-[#23313d]/35 bg-[#bfeadf] px-2.5 py-1 text-[0.68rem] font-black uppercase tracking-[0.12em] text-[#23313d]">
-        {note}
-      </p>
-      <p className="mt-3 text-base leading-7 text-[#34495a]">{body}</p>
     </article>
   );
 }
@@ -727,10 +609,13 @@ function FieldVisitLabel() {
         Field visit
       </p>
       <p className="mt-1 text-xs font-semibold leading-5 text-[#34495a]">
-        Lincoln Square Park, Oakland Chinatown, May 24, 2026
+        Lincoln Square Park, Oakland Chinatown
       </p>
-      <p className="mt-0.5 text-[0.68rem] font-bold uppercase tracking-[0.12em] text-[#52606b]">
-        Materials: iPhone 15 Pro
+      <p className="text-xs font-semibold leading-5 text-[#34495a]">
+        May 24, 2026
+      </p>
+      <p className="mt-1 text-[0.68rem] font-bold uppercase tracking-[0.12em] text-[#52606b]">
+        Materials: site photographs, digital reconstruction, personal memory
       </p>
     </div>
   );

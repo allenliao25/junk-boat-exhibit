@@ -1,3 +1,5 @@
+export type HotspotView = "left" | "right" | "back-left" | "back";
+
 export type Trace = {
   id: string;
   title: string;
@@ -8,6 +10,7 @@ export type Trace = {
   label: string;
   interpretation: string;
   hotspot: {
+    view: HotspotView;
     x: number;
     y: number;
   };
@@ -25,7 +28,7 @@ export const traces: Trace[] = [
       "This plaque places the playground boat within a longer story of Chinese maritime navigation and exploration.",
     interpretation:
       "The sign turns the structure into more than play equipment. It links Oakland's junk boat to a wider history of ships, travel, and public memory.",
-    hotspot: { x: 38, y: 56 },
+    hotspot: { view: "left", x: 26, y: 51 },
   },
   {
     id: "trace-02",
@@ -38,7 +41,7 @@ export const traces: Trace[] = [
       "This plaque records how the playground junk boat was inspired by the 1955 voyage of the Free China and later community restoration work.",
     interpretation:
       "The origin story matters because the boat is not only a play object. It is a neighborhood project shaped by migration, civic pride, and repeated care.",
-    hotspot: { x: 48, y: 58 },
+    hotspot: { view: "left", x: 38, y: 56 },
   },
   {
     id: "trace-03",
@@ -51,7 +54,7 @@ export const traces: Trace[] = [
       "A patched section marks the playground as an object that ages, breaks, and requires public maintenance.",
     interpretation:
       "Repair belongs in the story, not outside it. The boat survives through attention, maintenance, and decisions about what is worth keeping.",
-    hotspot: { x: 61, y: 53 },
+    hotspot: { view: "left", x: 61, y: 53 },
   },
   {
     id: "trace-04",
@@ -64,7 +67,7 @@ export const traces: Trace[] = [
       "A broken piece of wood on the court shows how wear on the structure can become visible evidence on the ground.",
     interpretation:
       "This trace is ordinary, even messy, but it matters. It connects play to upkeep, safety, and the shared responsibility of a park.",
-    hotspot: { x: 46, y: 73 },
+    hotspot: { view: "left", x: 48, y: 58 },
   },
   {
     id: "trace-05",
@@ -77,7 +80,7 @@ export const traces: Trace[] = [
       "Trash tucked under the structure records the boat as a living public place, not a sealed display case.",
     interpretation:
       "What remains after use is part of the record. These small leftovers make the site feel active, imperfect, and real.",
-    hotspot: { x: 55, y: 75 },
+    hotspot: { view: "left", x: 52, y: 54 },
   },
   {
     id: "trace-06",
@@ -90,7 +93,7 @@ export const traces: Trace[] = [
       "A posted rule frames the playground as a shared place with expectations, limits, and care instructions.",
     interpretation:
       "The sign is not separate from play. It shows how freedom in public space is shaped by safety, maintenance, and community agreement.",
-    hotspot: { x: 31, y: 33 },
+    hotspot: { view: "right", x: 47, y: 58 },
   },
   {
     id: "trace-07",
@@ -103,7 +106,7 @@ export const traces: Trace[] = [
       "The sail-like form gives the playground its identity as a boat before anyone climbs onto it.",
     interpretation:
       "This shape carries the exhibit outward: toward travel, Chinatown, and the stories a child can step into without leaving the park.",
-    hotspot: { x: 50, y: 22 },
+    hotspot: { view: "left", x: 50, y: 22 },
   },
   {
     id: "trace-08",
@@ -116,7 +119,7 @@ export const traces: Trace[] = [
       "Wall art near the boat places the playground within a wider field of neighborhood images and public expression.",
     interpretation:
       "The site does not stop at the edge of the structure. Its meaning expands into the surrounding visual life of Oakland Chinatown.",
-    hotspot: { x: 18, y: 58 },
+    hotspot: { view: "right", x: 78, y: 48 },
   },
   {
     id: "trace-09",
@@ -129,6 +132,6 @@ export const traces: Trace[] = [
       "A nearby passage records how people approach, circle, and move around the Junk Boat.",
     interpretation:
       "The playground is part of a larger route through the park. To excavate it, I also have to notice its edges and arrivals.",
-    hotspot: { x: 25, y: 66 },
+    hotspot: { view: "left", x: 25, y: 66 },
   },
 ];
